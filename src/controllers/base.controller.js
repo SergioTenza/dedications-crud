@@ -1,6 +1,11 @@
 import User from '../models/User';
 import Contacto from '../models/Contacto';
 import passport from 'passport';
+import {siteMessagesUp} from '../helpers/visitsUp'
+
+export const home = (req, res) => {    
+    res.render('index.html');
+}
 
 export const signupform = (req, res) => {
     res.render('panelRegister');
@@ -42,6 +47,7 @@ export const signup = async (req, res) => {
 };
 
 export const signinform = (req, res) => {                
+    
     res.render('panelLogin');
 }
 
@@ -97,6 +103,7 @@ export const contactResponse = async (req, res) => {
             mensaje
         });            
         const savedContacto = await newContacto.save();
+        siteMessagesUp();
         req.flash('success_msg', 'Ha enviado su mensaje satisfactoriamente. En breve contactaremos con usted.');
         res.redirect('/login')
     } catch (error) {

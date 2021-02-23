@@ -11,10 +11,25 @@ aside(class="main-sidebar sidebar-dark-primary elevation-4")
             div(class="image")
                 img(src="/img/userDefault-160x160.jpg" class="img-circle elevation-2" alt="")
             div(class="info")                
-                a(href="#" class="d-block") Bienvenido #{username}    
+                a(href="#" class="d-block") Bienvenido #{username}
+                p 
+                p                  
+                a(href="/logout" class="d-block") Cerrar sesión
+                    i(class="nav-icon fas fa-sign-out-alt pl-3")
+                          
         //Sidebar Menu
         nav(class="mt-2")
-            ul(class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false")                
+            ul(class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false") 
+                li(class="nav-item")
+                    a(href="" class="nav-link")                        
+                        i(class="nav-icon fas fa-cogs")
+                        p ADMIN PANEL
+                            i(class="fas fa-angle-left right")
+                    ul(class="nav nav-treeview")                                        
+                        li(class="nav-item")
+                            a(href="/panel/admin/info" class="nav-link")                        
+                                i(class="fas fa-info")
+                                p(class="pl-3") Informacion API               
                 li(class="nav-item")
                     a(href="" class="nav-link")                        
                         i(class="nav-icon fas fa-user-cog")
@@ -40,12 +55,8 @@ aside(class="main-sidebar sidebar-dark-primary elevation-4")
                         li(class="nav-item")
                             a(href="" class="nav-link")                        
                                 i(class="nav-icon fas fa-user-times")
-                                p(class="pl-3") Eliminar usuario
-                        p 
-                        li(class="nav-item text-warning")
-                            a(href="/logout" class="nav-link")                        
-                                i(class="nav-icon fas fa-sign-out-alt")
-                                p(class="pl-3") Cerrar sesión            
+                                p(class="pl-3") Eliminar usuario                         
+                                    
                 
                 li(class="nav-item")
                     a(href="" class="nav-link")                        
@@ -91,6 +102,7 @@ aside(class="main-sidebar sidebar-dark-primary elevation-4")
                             a(href="" class="nav-link")                        
                                 i(class="nav-icon far fa-minus-square")
                                 p(class="pl-3") Borrar maquina
+                
                 li(class="nav-item")
                     a(href="" class="nav-link")                        
                         i(class="nav-icon fas fa-euro-sign")

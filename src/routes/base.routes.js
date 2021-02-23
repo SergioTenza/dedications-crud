@@ -1,11 +1,8 @@
 import {Router} from 'express';
 const router = Router();
-
 import * as baseCtrl from '../controllers/base.controller'
 
-router.get('/', (req, res) => {
-    res.render('index.html');
-});
+router.get('/', baseCtrl.home);
 
 router.get('/login', baseCtrl.signinform);
 

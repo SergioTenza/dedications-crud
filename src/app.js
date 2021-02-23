@@ -7,7 +7,8 @@ import flash from 'connect-flash';
 import passport from 'passport';
 import dotenv from 'dotenv';
 
-import {createRoles} from './libs/initialSetup';
+import {createCounter, createRoles} from './libs/initialSetup';
+import {siteViewsId} from './helpers/visitsUp'
 
 import baseRoutes from './routes/base.routes';
 import panelRoutes from './routes/panel.routes';
@@ -19,11 +20,18 @@ dotenv.config();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 app.set('port', process.env.PORT || 5000);
+app.set('counter_logins', 0);
+app.set('counter_views', 0);
+app.set('counter_messages', 0);
+
 
 createRoles();
+createCounter();
+siteViewsId();
+
 
 app.use(session({
-    secret: 'api.dedications',
+    secret: process.env.SECRET,
     resave: true,
     saveUninitialized: true
 }));

@@ -1,7 +1,10 @@
 import User from '../models/User';
+import Contacto from '../models/Contacto';
 import agendaEvent from '../models/AgendaEvent';
 import passport from 'passport';
 import {isAuthenticated} from '../helpers/auth'
+import {siteLoginUp} from '../helpers/visitsUp'
+import app from '../app';
 
 export const createAgendaEvent = async (req,res) => {
     const {title, start,end,allday,url,backgroundColor,borderColor} = req.body;
@@ -27,12 +30,43 @@ export const createAgendaEventForm = (req, res) => {
     });
 }
 
-export const panelHome = (req, res) => {    
+export const panelHome = (req, res) => {  
+    siteLoginUp();  
     res.render('panel', {
         title: 'Main panel',
         cabecera: 'Main',
-        username: req.user.username        
+        username: req.user.username,
+        counterLogin: app.get('counter_logins'), 
+        counterMessages:  app.get('counter_messages'),
+        counterViews:  app.get('counter_views')      
     });
+}
+
+export const panelAdminInfo = async (req, res) => {      
+    const messages = await Contacto.find();
+    if (messages) {        
+        res.render('panelAdminInfo', {
+            title: 'Info Api',
+            cabecera: 'Api Info',
+            username: req.user.username,
+            counterLogin: app.get('counter_logins'), 
+            counterMessages:  app.get('counter_messages'),
+            counterViews:  app.get('counter_views'),
+            messages: messages      
+        });
+    }
+    else
+    {
+        res.render('panelAdminInfo', {
+            title: 'Info Api',
+            cabecera: 'Api Info',
+            username: req.user.username,
+            counterLogin: app.get('counter_logins'), 
+            counterMessages:  app.get('counter_messages'),
+            counterViews:  app.get('counter_views')      
+        });
+    }
+    
 }
 
 export const panelContacto = (req, res) => {        
