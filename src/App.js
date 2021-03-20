@@ -56,7 +56,6 @@ app.use(bodyParser.json());
 //app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.urlencoded({ extended: false })); 
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(express.static(path.join('/adminlte',__dirname, "/node_modules/admin-lte/")));
 
 app.use('/', baseRoutes);
 app.use('/panel', panelRoutes);
