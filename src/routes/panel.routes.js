@@ -9,11 +9,9 @@ const router = Router();
 
 router.get('/', isAuthenticated, panelCtrl.panelHome);
 
-router.get('/', isAuthenticated, panelCtrl.panelContacto);
+router.get('/admin/info', isAuthenticated, panelCtrl.panelAdminInfo);
 
 router.get('/calendar', isAuthenticated, panelCtrl.calendarPopulate);
-
-router.get('/admin/info', isAuthenticated, panelCtrl.panelAdminInfo);
 
 router.get('/calendar/create', isAuthenticated, panelCtrl.createAgendaEventForm);
 

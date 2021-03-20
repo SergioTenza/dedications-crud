@@ -1,8 +1,5 @@
-import User from '../models/User';
 import Contacto from '../models/Contacto';
 import agendaEvent from '../models/AgendaEvent';
-import passport from 'passport';
-import {isAuthenticated} from '../helpers/auth'
 import {siteLoginUp} from '../helpers/visitsUp'
 import app from '../app';
 
