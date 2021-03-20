@@ -1,0 +1,16 @@
+doctype html
+html(lang='es')
+head
+    include newLayout/header.pug 
+body(class="hold-transition sidebar-mini")        
+    include newLayout/wrapper.pug
+        include newLayout/main-header.pug
+        include newLayout/main-sidebar.pug            
+        include newLayout/content-wrapper
+            include newLayout/content-header 
+            include newLayout/main-content 
+                block card                      
+        footer
+            include newLayout/footer.pug
+            include newLayout/sidebar.pug                                 
+    include newLayout/js.pug   

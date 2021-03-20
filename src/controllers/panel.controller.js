@@ -29,7 +29,7 @@ export const createAgendaEventForm = (req, res) => {
 
 export const panelHome = (req, res) => {  
     siteLoginUp();  
-    res.render('panel', {
+    res.render('main', {
         title: 'Main panel',
         cabecera: 'Main',
         username: req.user.username,

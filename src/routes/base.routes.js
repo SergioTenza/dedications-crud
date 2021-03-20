@@ -4,6 +4,8 @@ import * as baseCtrl from '../controllers/base.controller'
 
 router.get('/', baseCtrl.home);
 
+router.get('/pruebas', baseCtrl.pruebas);
+
 router.get('/login', baseCtrl.signinform);
 
 router.post('/login', baseCtrl.signin);

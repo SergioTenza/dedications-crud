@@ -116,3 +116,9 @@ export const contactResponse = async (req, res) => {
 export const about = (req, res) => {
     res.render('panelAbout');
 }
+
+export const pruebas = (req, res) => {
+    res.render('main',{
+        cabecera: 'pruebas'
+    });
+}
