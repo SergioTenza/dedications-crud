@@ -1,13 +1,5 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
+import app from './app'
+import './database'
 
-
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
-
+app.listen(app.get('port'));
+console.log('server listen on port', app.get('port'));

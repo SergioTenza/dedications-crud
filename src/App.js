@@ -1,39 +1,64 @@
-import React from 'react';
-import {BrowserRouter as Router, Route} from 'react-router-dom';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap-icons/font/bootstrap-icons.css'
-import 'admin-lte/dist/css/adminlte.min.css'
-import 'admin-lte/plugins/fontawesome-free/css/all.min.css'
-import './App.css';
+import express from 'express';
+import session from 'express-session';
+import path from 'path';
+import morgan from'morgan';
+import bodyParser from 'body-parser';
+import flash from 'connect-flash';
+import passport from 'passport';
+import dotenv from 'dotenv';
 
-//import Navigation from './components/Navigation';
-import NavigationAdmin from './components/NavigationAdmin';
-import CreateNote from './components/CreateNote';
-import CreateUser from './components/CreateUser';
-import NotesList from './components/NotesList';
-import Home from './components/Home';
-import BreadCrumb from './components/BreadCrumb';
-import SideBarAdmin from './components/SideBarAdmin';
-import MainContent from './components/MainContent';
-import UserList from './components/UserList'
-import MachineList from './components/MachineList'
+import {createCounter, createRoles} from './libs/initialSetup';
+import {siteViewsId} from './helpers/visitsUp'
 
-function App() {
-  return (    
-    <Router>      
-      <div className="wrapper">           
-        <NavigationAdmin/>      
-        <SideBarAdmin/>         
-      </div>
-      <div className="content-wrapper">          
-          <Route path="/" exact component={MachineList} />
-          <Route path="/edit/:id" component={CreateNote} />
-          <Route path="/create" component={CreateNote} />
-          <Route path="/user" component={CreateUser} />
-          <Route path="/notes" component={NotesList} />
-      </div>
-    </Router>
-  );
-}
+import baseRoutes from './routes/base.routes';
+import panelRoutes from './routes/panel.routes';
 
-export default App;
+const app = express();
+require('./config/passport');
+
+dotenv.config();
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'pug');
+app.set('port', process.env.PORT || 5000);
+app.set('counter_logins', 0);
+app.set('counter_views', 0);
+app.set('counter_messages', 0);
+
+
+createRoles();
+createCounter();
+siteViewsId();
+
+
+app.use(session({
+    secret: process.env.SECRET,
+    resave: true,
+    saveUninitialized: true
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(flash());
+
+//Global Variables
+app.use((req, res, next) => {
+    res.locals.success_msg = req.flash('success_msg');
+    res.locals.error_msg = req.flash('error_msg');
+    res.locals.error = req.flash('error');
+    res.locals.user = req.user || null; 
+    next();
+})
+
+app.use(morgan('dev'));
+app.use(express.json());
+// for parsing application/json
+app.use(bodyParser.json());
+// for parsing application/xwww-
+//app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: false })); 
+app.use(express.static(path.join(__dirname, 'public')));
+
+app.use('/', baseRoutes);
+app.use('/panel', panelRoutes);
+
+
+export default app;

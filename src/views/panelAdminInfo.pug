@@ -1,0 +1,74 @@
+extends Bpanel.pug   
+
+block mainContainer
+    //<!-- Content Wrapper. Contains page content 
+    div(class="content-wrapper")
+        //<!-- Content Header (Page header) 
+        section(class="content-header")
+            div(class="container-fluid")
+                div(class="row mb-2")
+                    div(class="col-sm-6")
+                        h1 #{cabecera}
+                    div(class="col-sm-6")
+                        ol(class="breadcrumb float-sm-right")
+                            li(class="breadcrumb-item") <a href="/panel">Home</a>
+                            li(class="breadcrumb-item active") #{cabecera}                            
+            //<!-- /.container-fluid 
+        
+        //<!-- Main content 
+        section(class="content")
+            div(class="container-fluid")
+                div(class="row")
+                    div(class="col-12")
+                        include layout/messagesError.pug
+                        include layout/messagesSuccesful.pug                
+                div(class="row")                
+                    div(class="col-12 col-sm-6 col-md-3")
+                        div(class="info-box")
+                            span(class="info-box-icon bg-info elevation-1") <i class="far fa-envelope"></i>
+
+                            div(class="info-box-content")
+                                span(class="info-box-text") Nuevos Mensajes
+                                span(class="info-box-number") #{counterMessages}
+                    div(class="col-12 col-sm-6 col-md-3")
+                        div(class="info-box mb-3")
+                            span(class="info-box-icon bg-warning elevation-1") <i class="fas fa-sign-in-alt"></i>
+
+                            div(class="info-box-content")
+                                span(class="info-box-text") Loggings
+                                span(class="info-box-number") #{counterLogin}   
+                    
+                    div(class="clearfix hidden-md-up")                         
+                div(class="row")
+                    div(class="col-12")    
+                        div(class="card")
+                            div(class="card-header")
+                                h3(class="card-title") Solicitudes de Informacion                                
+                                div(class="card-body") 
+                                     <table class="table table-bordered table-hover">
+                                        <thead>
+                                            <tr>                                            
+                                            <th>Nombre</th>
+                                            <th>Email</th>
+                                            <th>Asunto</th>
+                                            <th>Fecha</th>                                            
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        if messages
+                                            each val in messages
+                                                tr(data-widget="expandable-table" aria-expanded="false")                                                    
+                                                    <td> #{val.name} </td>
+                                                    <td> #{val.email} </td>                                                    
+                                                    <td> #{val.asunto} </td>                                            
+                                                    <td> #{val.createdAt} </td>
+                                                <tr class="expandable-body">
+                                                <td colspan="5">
+                                                    <p> #{val.mensaje}
+                div(class="clearfix hidden-md-up")
+                .row 
+                    .col-12    
+                        h3 No se que pasa aqui 
+                                
+                            
+                    
